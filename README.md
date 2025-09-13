@@ -38,7 +38,6 @@ pip install pandas numpy matplotlib seaborn scikit-learn
 **Notes**: A more detailed description is contained in the notebooks before each step. The following writing represents more an overview of the processing and analysis steps I took in the projects.
 
 <br>
-<br>
 
 # TASK 1
 
@@ -73,8 +72,6 @@ pip install pandas numpy matplotlib seaborn scikit-learn
 - Decided to proceed with column-wise join while explicitly acknowledging its limitations
 
 <br>
-<br>
-
 
 
 # TASK 2
