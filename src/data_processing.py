@@ -52,4 +52,3 @@ def fill_singleton_dimensions(df, col):
         max_col] = df[min_col]
     
     return df
-   

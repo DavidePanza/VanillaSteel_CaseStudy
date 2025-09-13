@@ -2,125 +2,184 @@ import pandas as pd
 import numpy as np
 
 
-# Compute Intersection over Union (IoU) similarity for two ranges
-def dimension_similarity(min1, max1, min2, max2, type='iou'):
-    """ Compute similarity between two ranges using IoU or distance-based metric. """
-    # Handle NaN cases
-    nan1 = pd.isna(min1) or pd.isna(max1)
-    nan2 = pd.isna(min2) or pd.isna(max2)
+# Compute similarity matrix for grade properties
+def grade_similarity(df, grade_properties_vars, distance_type='cosine'):
+    """ Compute similarity matrix for grade properties using specified distance metric. """
+    n = len(df)
+    similarity_matrix = np.zeros((n, n))
     
-    if nan1 and nan2:
-        return 1.0  
-    elif nan1 or nan2:
-        return 0.0 
-    
-    if min1 == max1 and min2 == max2:
-        return 1.0 if min1 == min2 else 0.0
-
-    if type == 'iou':
-        intersection = max(0, min(max1, max2) - max(min1, min2))
-        union = max(max1, max2) - min(min1, min2)
-        return intersection / union if union > 0 else 0
-    elif type == 'distance':
-        center1 = (min1 + max1) / 2
-        center2 = (min2 + max2) / 2
-        distance = abs(center1 - center2)
-        return np.round(np.exp(-distance / max(abs(center1), abs(center2), 1)), 2)
-
-    return 0
-
-def run_dimension_similarity(row1, row2, dims, type='iou'):
-    """ Compute average dimension similarity across multiple dimensions. """
-    ious = []
-    for dim in dims:
-        min_col = f"{dim}_min"
-        max_col = f"{dim}_max"
-        iou = dimension_similarity(
-            row1[min_col], row1[max_col],
-            row2[min_col], row2[max_col], type=type
-        )
-        ious.append(iou)
-    
-    return sum(ious) / len(ious) if ious else 1.0
-
-
-# Compute similarity for categorical variables
-def categorical_similarity(val1, val2):
-    """ Compute similarity for categorical values, handling NaNs. """
-    if pd.isna(val1) and pd.isna(val2):
-        return 1
-    elif pd.isna(val1) or pd.isna(val2):
-        return 0
-    else:
-        return 1 if val1 == val2 else 0
-
-def run_categorical_similarity(row1, row2, dims):
-    """ Compute average categorical similarity across multiple dimensions. """
-    cat_matches = []
-    for dim in dims:
-        sim = categorical_similarity(row1[dim], row2[dim])
-        if sim is not None:  
-            cat_matches.append(sim)
-    
-    return sum(cat_matches) / len(cat_matches) if cat_matches else 0.0
-
-
-# Compute similarity for numerical properties using specified distance metric
-def run_grade_similarity(df, row1, row2, grade_properties_vars, distance_type='cosine'):
-    """ Compute similarity between two rows based on numerical properties. """
-    vec1, vec2 = [], []
+    # normalise data
+    data_normalized = df[grade_properties_vars].copy()
     for col in grade_properties_vars:
-        val1, val2 = row1[col], row2[col]
-        if not (pd.isna(val1) or pd.isna(val2)):
-            # Normalize by column range
-            col_min = df[col].min()
-            col_range = df[col].max() - col_min
-            if col_range > 0:
-                vec1.append((val1 - col_min) / col_range)
-                vec2.append((val2 - col_min) / col_range)
+        col_min = data_normalized[col].min()
+        col_range = data_normalized[col].max() - col_min
+        if col_range > 0:
+            data_normalized[col] = (data_normalized[col] - col_min) / col_range
+        else:
+            data_normalized[col] = 0
     
-    if not vec1:
-        return 0.0
+    # convert to numpy arrays 
+    data_array = data_normalized.to_numpy()
+    is_nan = pd.isna(data_normalized).values
     
-    vec1, vec2 = np.array(vec1), np.array(vec2)
+    # compute similarities
+    for i in range(n):
+        if i % 250 == 0:
+            print(f"Processing row {i}/{n}")
+        similarity_matrix[i, i] = 1.0  # add diagonal == 1
 
-    if distance_type == 'cosine':
-        return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
-    elif distance_type == 'euclidean':
-        distance = np.linalg.norm(vec1 - vec2)
-        return 1 - (distance / np.sqrt(len(vec1)))
-    return 0.0
-
-
-# Combine all similarity measures with weights and handle ablations
-def run_similarity_analysis(distance_type, similarity_type, ablations, weights, df, dimensions_vars, categorical_vars, grade_properties_vars):
-    """ Run similarity analysis with specified parameters. """
-    dimensions_matrix = np.zeros((len(df), len(df)))
-    categories_matrix = np.zeros((len(df), len(df)))
-    properties_matrix = np.zeros((len(df), len(df)))
-
-    for i in range(len(df)):
-        if i % 20 == 0:
-            print(f"Processing row {i}/{len(df)}")
-        for j in range(len(df)):
-            if i != j:
-                if 'dimensions' not in ablations:
-                    sim_iou = run_dimension_similarity(df.iloc[i], df.iloc[j], dims=dimensions_vars, type=similarity_type)
-                    dimensions_matrix[i, j] = sim_iou
-                if 'categories' not in ablations:
-                    sim_cat = run_categorical_similarity(df.iloc[i], df.iloc[j], dims=categorical_vars)
-                    categories_matrix[i, j] = sim_cat
-                if 'properties' not in ablations:
-                    sim_prop = run_grade_similarity(df, df.iloc[i], df.iloc[j], grade_properties_vars=grade_properties_vars, distance_type=distance_type)
-                    properties_matrix[i, j] = sim_prop
+        for j in range(i + 1, n):
+            # find columns valid for both rows
+            valid_mask = ~(is_nan[i] | is_nan[j])
+            
+            if not valid_mask.any():
+                similarity = 0.0
             else:
-                if 'dimensions' not in ablations:
-                    dimensions_matrix[i, j] = 1.0
-                if 'categories' not in ablations:
-                    categories_matrix[i, j] = 1.0
-                if 'properties' not in ablations:
-                    properties_matrix[i, j] = 1.0   
+                vec1 = data_array[i, valid_mask]
+                vec2 = data_array[j, valid_mask]
+                
+                if distance_type == 'cosine':
+                    norm1, norm2 = np.linalg.norm(vec1), np.linalg.norm(vec2)
+                    if norm1 == 0 and norm2 == 0:
+                        similarity = 1.0   # both vectors zero --> similarity 1
+                    elif norm1 == 0 or norm2 == 0:
+                        similarity = 0.0
+                    else:
+                        similarity = np.dot(vec1, vec2) / (norm1 * norm2)
+                elif distance_type == 'euclidean':
+                    distance = np.linalg.norm(vec1 - vec2)
+                    similarity = 1 - (distance / np.sqrt(len(vec1)))
+                else:
+                    similarity = 0.0
+            
+            # fill matrix symmetrically
+            similarity_matrix[i, j] = similarity
+            similarity_matrix[j, i] = similarity
+    
+    return similarity_matrix
 
-    combined_similarity = ((properties_matrix*weights[0] + categories_matrix*weights[1] + dimensions_matrix*weights[2])/(3-len(ablations))).round(3)
 
-    return combined_similarity
+# Compute similarity matrix for categorical variables
+def categorical_similarity(df, categorical_vars):
+    """Vectorized computation of categorical similarities."""
+    n = len(df)
+    similarity_matrix = np.zeros((n, n))
+    
+    for var in categorical_vars:
+        values = df[var].to_numpy()
+        # NaN values mas
+        nan_mask = pd.isna(values)
+        
+        # broadcasting to create comparison matrix
+        matches = (values[:, None] == values[None, :])
+        
+        # Set NaN == NaN --> 1, NaN != value --> 0
+        nan_both = nan_mask[:, None] & nan_mask[None, :]
+        nan_either = (nan_mask[:, None] | nan_mask[None, :]) & ~nan_both
+        
+        # Get final matches
+        matches = matches & ~nan_either  
+        matches = matches | nan_both     
+        similarity_matrix += matches.astype(float)
+    
+    # average across variables
+    return similarity_matrix / len(categorical_vars)
+
+
+# Compute similarity matrix for dimension ranges
+def dimension_similarity(df, dimensions_vars, type='iou'):
+    """ Compute similarity matrix for dimensional ranges. """
+    n = len(df)
+    total_similarity = np.zeros((n, n))
+    
+    for dim in dimensions_vars:
+        mins = df[f"{dim}_min"].to_numpy()
+        maxs = df[f"{dim}_max"].to_numpy()
+        nan_mask = pd.isna(mins) | pd.isna(maxs)
+        singletons_mask = (mins == maxs) & ~nan_mask
+        
+        # create matrix for this dimension
+        dim_similarity = np.zeros((n, n))
+        
+        for i in range(n):
+            for j in range(i, n): 
+                if i == j:
+                    sim = 1.0
+                elif nan_mask[i] and nan_mask[j]:
+                    sim = 1.0
+                elif nan_mask[i] or nan_mask[j]:
+                    sim = 0.0
+                elif singletons_mask[i] and singletons_mask[j]:
+                    sim = 1.0 if mins[i] == mins[j] else 0.0
+                else:
+                    if type == 'iou':
+                        intersection = max(0, min(maxs[i], maxs[j]) - max(mins[i], mins[j]))
+                        union = max(maxs[i], maxs[j]) - min(mins[i], mins[j])
+                        sim = intersection / union if union > 0 else 0
+                    elif type == 'distance':
+                        center_i = (mins[i] + maxs[i]) / 2
+                        center_j = (mins[j] + maxs[j]) / 2
+                        distance = abs(center_i - center_j)
+                        sim = np.round(np.exp(-distance / max(abs(center_i), abs(center_j), 1)), 2)
+                    else:
+                        sim = 0.0
+                
+                dim_similarity[i, j] = sim # this is because of symmetry
+                dim_similarity[j, i] = sim
+
+        # add this dimension to total
+        total_similarity += dim_similarity
+    
+    return total_similarity / len(dimensions_vars)
+
+
+# Main function to compute combined similarity matrix
+def run_similarity_analysis(df, dimensions_vars, categorical_vars, grade_properties_vars, 
+                           distance_type='cosine', similarity_type='iou', 
+                           ablations=[], weights=[1, 1, 1]):
+    """ Run similarity analysis combining different components with optional ablations. """
+    n = len(df)
+    matrices = []
+    used_weights = []
+    
+    if 'properties' not in ablations and grade_properties_vars:
+        print("Computing property similarities")
+        properties_matrix = grade_similarity(df, grade_properties_vars, distance_type)
+        matrices.append(properties_matrix)
+        used_weights.append(weights[0])
+    
+    if 'categories' not in ablations and categorical_vars:
+        print("Computing categorical similarities")
+        categories_matrix = categorical_similarity(df, categorical_vars)
+        matrices.append(categories_matrix)
+        used_weights.append(weights[1])
+    
+    if 'dimensions' not in ablations and dimensions_vars:
+        print("Computing dimensional similarities")
+        dimensions_matrix = dimension_similarity(df, dimensions_vars, type=similarity_type)
+        matrices.append(dimensions_matrix)
+        used_weights.append(weights[2])
+    
+    # Weighted combination
+    combined_similarity = np.zeros((n, n))
+    total_weight = sum(used_weights)
+    
+    for matrix, weight in zip(matrices, used_weights):
+        combined_similarity += matrix * (weight / total_weight)
+    
+    return np.round(combined_similarity, 3)
+
+
+def run_explorations(explorations, default_params):
+    """ Run multiple similarity analyses with different parameters. """
+    matrices = {}
+    for exp_name, overrides in explorations.items():
+        print(f"Running analysis for: {exp_name}")
+        params = {**default_params, **overrides}
+        matrices[exp_name] = run_similarity_analysis(
+            params['df'], params['dimensions_vars'], params['categorical_vars'], 
+            params['grade_properties_vars'], distance_type=params['distance_type'],
+            similarity_type=params['similarity_type'], ablations=params['ablations'],
+            weights=params['weights']
+        )
+    return matrices

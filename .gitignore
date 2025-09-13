@@ -1,1 +1,4 @@
 *.pdf
+trash/*
+outputs/*
+__pycache__/

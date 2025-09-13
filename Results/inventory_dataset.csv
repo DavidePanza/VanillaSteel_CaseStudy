@@ -1,0 +1,51 @@
+quality_choice,grade,finish,thickness_mm,width_mm,defect_description,gross_weight_kg,rp02,rm,a5/a80,ag,ai,material,material_description,article_id,weight_kg,quantity,reserved
+3rd,C200S,gebeizt und geglüht,2.77,1100.0,längs- oder querisse,13983,333.6,606.2,0.0,16.11,0.0054,HDC,material ist geölt,23048203,24469,52,nicht reserviert
+3rd,C300S,ungebeizt,2.65,1075.0,längs- oder querisse,13047,717.7,0.0,0.0,16.11,0.0046,S235JR,material ist geölt,23040547,16984,41,nicht reserviert
+3rd,C100S,gebeizt und geglüht,2.2,1100.0,kantenfehler - fs-kantenrisse,14155,368.9,0.0,10.84,0.0,0.0061,S235JR,material ist lackiert,23046057,9162,28,nicht reserviert
+2nd,C100S,gebeizt,2.86,1100.0,längs- oder querisse,11381,368.9,601.7,22.87,0.0,0.0062,DX51D +AZ150,material ist geölt,23041966,12119,66,vanilla
+1st,C300S,ungebeizt,2.88,1050.0,sollmasse (gewicht) unterschritten,10072,0.0,1213.0,22.87,0.0,0.0041,HDC,material ist lackiert,23043884,17260,26,nicht reserviert
+2nd,C200S,gebeizt,2.51,1000.0,längs- oder querisse,12863,0.0,606.2,0.0,0.0,0.0059,DX51D +Z140,material ist nicht geölt,23048868,23258,60,vanilla
+1st,C100S,gebeizt,2.69,1150.0,sollmasse (gewicht) unterschritten,8936,0.0,606.2,10.84,15.05,0.0066,HDC,material ist geölt,23046459,20994,93,vanilla
+2nd,C300S,gebeizt und geglüht,2.98,1000.0,sollmasse (gewicht) unterschritten,9810,0.0,601.7,22.87,15.05,0.0042,HDC,material ist geölt,23043788,22325,73,nicht reserviert
+3rd,C200S,gebeizt,2.03,1050.0,längs- oder querisse,5491,368.9,601.7,22.87,0.0,0.0064,S235JR,material ist geölt,23044935,10571,60,nicht reserviert
+3rd,C300S,gebeizt,2.54,1050.0,längs- oder querisse,11415,368.9,606.2,0.0,15.05,0.0067,DX51D +Z140,material ist nicht geölt,23049059,12999,95,vanilla
+2nd,C100S,gebeizt und geglüht,2.31,1050.0,kantenfehler - fs-kantenrisse,14758,333.6,0.0,0.0,0.0,0.0061,HDC,material ist nicht geölt,23047860,15862,59,nicht reserviert
+1st,C100S,ungebeizt,2.55,1050.0,sollmasse (gewicht) unterschritten,13400,717.7,606.2,0.0,15.05,0.0047,DX51D +AZ150,material ist lackiert,23047939,9217,72,nicht reserviert
+3rd,C100S,gebeizt und geglüht,2.52,1100.0,längs- oder querisse,12787,368.9,0.0,25.46,16.11,0.005,S235JR,material ist nicht geölt,23047348,15881,36,nicht reserviert
+2nd,C200S,ungebeizt,2.46,1000.0,sollmasse (gewicht) unterschritten,8391,368.9,601.7,22.87,0.0,0.0053,HDC,material ist lackiert,23045961,23915,30,vanilla
+3rd,C100S,gebeizt und geglüht,2.74,1100.0,längs- oder querisse,10409,0.0,601.7,10.84,6.858,0.0062,S235JR,material ist lackiert,23042649,15741,71,nicht reserviert
+2nd,C100S,gebeizt,2.27,1150.0,sollmasse (gewicht) unterschritten,5951,0.0,601.7,0.0,6.858,0.0061,S235JR,material ist nicht geölt,23048176,15717,54,vanilla
+2nd,C300S,ungebeizt,2.08,1150.0,kantenfehler - fs-kantenrisse,8240,333.6,601.7,22.87,15.05,0.0068,S235JR,material ist lackiert,23043667,23967,10,nicht reserviert
+1st,C300S,gebeizt und geglüht,2.29,1050.0,längs- oder querisse,14139,368.9,606.2,22.87,16.11,0.0066,HDC,material ist nicht geölt,23046190,21346,58,vanilla
+3rd,C100S,ungebeizt,2.19,1050.0,längs- oder querisse,7304,333.6,1213.0,10.84,0.0,0.0064,S235JR,material ist nicht geölt,23044291,10389,22,nicht reserviert
+2nd,C100S,gebeizt und geglüht,2.14,1000.0,kantenfehler - fs-kantenrisse,13518,368.9,1213.0,22.87,16.11,0.0055,S235JR,material ist geölt,23046841,18501,94,vanilla
+1st,C100S,gebeizt,2.84,1150.0,längs- oder querisse,12010,717.7,1213.0,10.84,6.858,0.0068,S235JR,material ist geölt,23041008,14277,33,vanilla
+2nd,C200S,gebeizt und geglüht,2.88,1050.0,sollmasse (gewicht) unterschritten,6665,717.7,1213.0,0.0,16.11,0.0051,S235JR,material ist geölt,23041560,24951,98,nicht reserviert
+1st,C100S,gebeizt und geglüht,2.51,1050.0,längs- oder querisse,14839,0.0,606.2,0.0,15.05,0.0041,HDC,material ist lackiert,23043638,15121,12,nicht reserviert
+3rd,C200S,gebeizt,2.22,1050.0,längs- oder querisse,10959,368.9,606.2,22.87,0.0,0.0051,DX51D +AZ150,material ist geölt,23041902,17933,72,nicht reserviert
+2nd,C200S,ungebeizt,2.83,1100.0,sollmasse (gewicht) unterschritten,14688,333.6,606.2,0.0,16.11,0.0057,DX51D +AZ150,material ist nicht geölt,23049627,20304,82,vanilla
+3rd,C300S,gebeizt,2.32,1150.0,längs- oder querisse,5979,717.7,601.7,25.46,16.11,0.0065,HDC,material ist nicht geölt,23044610,20027,96,vanilla
+3rd,C100S,gebeizt und geglüht,2.48,1050.0,kantenfehler - fs-kantenrisse,10499,333.6,1213.0,10.84,15.05,0.0059,DX51D +Z140,material ist nicht geölt,23049106,23131,34,nicht reserviert
+2nd,C300S,gebeizt und geglüht,2.21,1100.0,sollmasse (gewicht) unterschritten,10723,368.9,1213.0,25.46,6.858,0.0042,S235JR,material ist lackiert,23048028,6113,29,nicht reserviert
+2nd,C100S,ungebeizt,2.75,1100.0,längs- oder querisse,10262,368.9,0.0,10.84,6.858,0.0049,DX51D +AZ150,material ist geölt,23045099,9037,78,nicht reserviert
+3rd,C200S,gebeizt,2.75,1075.0,kantenfehler - fs-kantenrisse,8118,0.0,601.7,0.0,0.0,0.0069,S235JR,material ist nicht geölt,23046741,24331,31,vanilla
+3rd,C100S,ungebeizt,2.89,1075.0,sollmasse (gewicht) unterschritten,5011,0.0,606.2,10.84,0.0,0.0053,DX51D +Z140,material ist lackiert,23047239,11898,21,vanilla
+1st,C100S,gebeizt und geglüht,2.32,1150.0,sollmasse (gewicht) unterschritten,8410,333.6,601.7,25.46,6.858,0.0048,DX51D +AZ150,material ist geölt,23049907,21609,33,nicht reserviert
+3rd,C300S,gebeizt,2.53,1100.0,längs- oder querisse,5124,0.0,601.7,25.46,15.05,0.0041,S235JR,material ist lackiert,23044447,19165,67,vanilla
+2nd,C100S,gebeizt und geglüht,2.18,1075.0,sollmasse (gewicht) unterschritten,12071,368.9,1213.0,25.46,16.11,0.0054,HDC,material ist nicht geölt,23047489,18716,64,nicht reserviert
+2nd,C100S,gebeizt,2.75,1000.0,kantenfehler - fs-kantenrisse,13321,368.9,606.2,10.84,16.11,0.0045,S235JR,material ist nicht geölt,23040273,7025,33,vanilla
+2nd,C300S,ungebeizt,2.43,1000.0,längs- oder querisse,7968,717.7,1213.0,0.0,0.0,0.0047,DX51D +Z140,material ist lackiert,23040905,14796,76,vanilla
+1st,C300S,gebeizt,2.82,1050.0,kantenfehler - fs-kantenrisse,12702,717.7,0.0,22.87,16.11,0.0054,DX51D +Z140,material ist nicht geölt,23043967,21149,62,nicht reserviert
+1st,C200S,gebeizt und geglüht,2.8,1050.0,kantenfehler - fs-kantenrisse,5915,717.7,601.7,0.0,15.05,0.0058,S235JR,material ist lackiert,23045724,16393,68,vanilla
+1st,C100S,gebeizt,2.01,1050.0,längs- oder querisse,8047,333.6,601.7,22.87,16.11,0.0067,HDC,material ist nicht geölt,23049672,21321,93,vanilla
+2nd,C300S,ungebeizt,2.3,1000.0,längs- oder querisse,7772,0.0,0.0,25.46,0.0,0.0059,DX51D +AZ150,material ist geölt,23049617,22395,62,nicht reserviert
+3rd,C200S,ungebeizt,2.12,1075.0,längs- oder querisse,9995,368.9,0.0,10.84,15.05,0.007,DX51D +AZ150,material ist lackiert,23043836,9355,64,vanilla
+1st,C100S,gebeizt und geglüht,2.37,1075.0,kantenfehler - fs-kantenrisse,9774,368.9,606.2,10.84,16.11,0.0063,S235JR,material ist lackiert,23049333,10143,78,nicht reserviert
+2nd,C100S,gebeizt und geglüht,2.43,1150.0,sollmasse (gewicht) unterschritten,11360,368.9,606.2,22.87,16.11,0.0051,HDC,material ist geölt,23041897,17001,62,vanilla
+3rd,C100S,ungebeizt,2.08,1100.0,längs- oder querisse,8261,333.6,1213.0,22.87,15.05,0.0041,S235JR,material ist nicht geölt,23040756,6034,50,nicht reserviert
+3rd,C100S,gebeizt und geglüht,2.75,1050.0,kantenfehler - fs-kantenrisse,9110,368.9,1213.0,22.87,16.11,0.0058,DX51D +AZ150,material ist geölt,23041086,15230,95,nicht reserviert
+2nd,C300S,ungebeizt,2.72,1150.0,längs- oder querisse,13667,0.0,606.2,10.84,0.0,0.0055,DX51D +Z140,material ist nicht geölt,23047543,9940,96,nicht reserviert
+3rd,C100S,gebeizt und geglüht,2.74,1000.0,längs- oder querisse,6947,717.7,606.2,22.87,6.858,0.0045,DX51D +AZ150,material ist lackiert,23045292,23884,51,nicht reserviert
+3rd,C100S,gebeizt,2.48,1150.0,sollmasse (gewicht) unterschritten,8786,717.7,1213.0,0.0,0.0,0.0042,S235JR,material ist geölt,23047408,5302,12,vanilla
+1st,C300S,gebeizt,2.48,1150.0,sollmasse (gewicht) unterschritten,14311,368.9,1213.0,25.46,15.05,0.0046,DX51D +Z140,material ist geölt,23043348,16927,69,vanilla
+1st,C100S,gebeizt,2.79,1050.0,sollmasse (gewicht) unterschritten,8048,0.0,0.0,0.0,15.05,0.0052,HDC,material ist nicht geölt,23043386,11191,75,vanilla
